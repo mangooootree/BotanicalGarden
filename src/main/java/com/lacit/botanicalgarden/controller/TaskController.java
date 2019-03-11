@@ -149,7 +149,7 @@ public class TaskController {
                     } else {
                         result.append(builder).deleteCharAt(result.length() - 1)
                                 .append("\n");
-                        builder.delete(0, builder.length());
+                        builder.setLength(0);
                         builder.append(word).append(" ");
                     }
                 }

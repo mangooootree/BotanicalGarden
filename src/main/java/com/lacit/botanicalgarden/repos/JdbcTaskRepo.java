@@ -31,14 +31,12 @@ public class JdbcTaskRepo implements TaskRepo {
 
     @Override
     public List<Task> findAll() {
-
         return jdbc.query("select id, title, date, plant_id, done, comment from Task",
                 this::mapRowToPlant);
     }
 
     @Override
     public Task findOne(Long id) {
-
         return jdbc.queryForObject("select id, title, date, plant_id, done, comment from Task where id=?",
                 this::mapRowToPlant, id);
     }
@@ -46,20 +44,17 @@ public class JdbcTaskRepo implements TaskRepo {
     @Override
     public Long save(Task task) {
         Map<String, Object> parameters = new HashMap<>();
-
         parameters.put("title", task.getTitle());
         parameters.put("date", new Date());
         parameters.put("plant_id", task.getPlant().getId());
         parameters.put("done", task.isDone());
         parameters.put("comment", task.getComment());
         Number newId = simpleJdbcInsert.executeAndReturnKey(parameters);
-
         return newId.longValue();
     }
 
     @Override
     public int update(Task task) {
-
         return jdbc.update("update task set title = ?, date = ?, plant_id = ?, done = ?, comment = ? where id = ?",
                 task.getTitle(),
                 task.getDate(),
@@ -71,12 +66,10 @@ public class JdbcTaskRepo implements TaskRepo {
 
     @Override
     public int delete(Long id) {
-
         return jdbc.update("delete from Task where id=?", id);
     }
 
     private Task mapRowToPlant(ResultSet rs, int rowNum) throws SQLException {
-
         return new Task(
                 Long.parseLong(rs.getString("id")),
                 rs.getString("title"),
@@ -84,6 +77,5 @@ public class JdbcTaskRepo implements TaskRepo {
                 plantRepo.findOne(rs.getLong("plant_id")),
                 rs.getBoolean("done"),
                 rs.getString("comment"));
-
     }
 }

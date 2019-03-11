@@ -29,21 +29,18 @@ public class JdbcUserRepo implements UserRepo {
 
     @Override
     public List<User> findAll() {
-
         return jdbc.query("select id, username, password, role from Usr",
                 this::mapRowToPlant);
     }
 
     @Override
     public User findOne(Long id) {
-
         return jdbc.queryForObject("select id, username, password, role from Usr where id=?",
                 this::mapRowToPlant, id);
     }
 
     @Override
     public User findByUsername(String username) {
-
         return jdbc.queryForObject("select id, username, password, role from Usr where username=?",
                 this::mapRowToPlant, username);
     }
@@ -51,18 +48,15 @@ public class JdbcUserRepo implements UserRepo {
     @Override
     public Long save(User user) {
         Map<String, Object> parameters = new HashMap<>();
-
         parameters.put("username", user.getUsername());
         parameters.put("password", user.getPassword());
         parameters.put("role", user.getRole().name());
         Number newId = simpleJdbcInsert.executeAndReturnKey(parameters);
-
         return newId.longValue();
     }
 
     @Override
     public int update(User user) {
-
         return jdbc.update("update usr set username = ?, password = ?, role = ? where id = ?",
                 user.getUsername(),
                 user.getPassword(),
@@ -72,12 +66,10 @@ public class JdbcUserRepo implements UserRepo {
 
     @Override
     public int delete(Long id) {
-
         return jdbc.update("delete from usr where id=?", id);
     }
 
     private User mapRowToPlant(ResultSet rs, int rowNum) throws SQLException {
-
         return new User(
                 Long.parseLong(rs.getString("id")),
                 rs.getString("username"),

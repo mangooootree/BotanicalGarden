@@ -78,7 +78,7 @@
                     <td>
                         <#if !task.isDone()>
                             <form action="/newComment" method="post">
-                                <textarea name="comment" required></textarea>
+                                <textarea name="comment" required maxlength=2700></textarea>
                                 <br>
                                 <input type="submit" title="add">
                                 <input type="hidden" name="id" value="${task.id}"/>

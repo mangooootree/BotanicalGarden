@@ -49,7 +49,7 @@ public class PlantController {
         Plant plant = plantRepo.findOne(Long.parseLong(id));
         List<Task> tasks = taskRepo.findAll();
 
-        for (Task task: tasks){
+        for (Task task : tasks) {
             if (task.getPlant().equals(plant))
                 return "redirect:/plants";
         }
@@ -71,7 +71,7 @@ public class PlantController {
                            @RequestParam String type) {
         Plant plant = new Plant(name, PlantType.valueOf(type), false);
         Long id = plantRepo.save(plant);
-        Task task = new Task("Высадка растения", plantRepo.findOne(id),false);
+        Task task = new Task("Высадка растения", plantRepo.findOne(id), false);
 
         taskRepo.save(task);
 

@@ -6,7 +6,7 @@
         <br><br>
         <#if showForm??>
             <form action="newPlant" method="post">
-                <input type="text" name="name" placeholder="plant name" required>
+                <input type="text" name="name" placeholder="plant name" required maxlength=250>
                 <select name="type">
                     <#list types as type>
                         <option>${type.name()}</option>
